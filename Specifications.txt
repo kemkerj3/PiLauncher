@@ -1,0 +1,17 @@
+PiLauncher.py <options>
+--continuity n | -cn
+--arm n | -an
+--disarm n | -dn
+--launch <delay> | -l<delay>
+--status | -s
+
+
+Pads are numbered 1 to 4.  Delay is in seconds, minimum 1, maximum 3.  It's how long the relay stays closed.  NFPA 1127 (regulatory document) says we cannot supply current to a launch system for longer than 3 seconds.  When --launch is sent, all pads that are armed close the relays for <delay> seconds.  After a launch, all pads are automatically disarmed.
+
+Status is returned as a string of letters, with the position indicating which pad, with 1 being the ;eft most position and 4 being the right most position.  Status letter can be d for disarmed, no continuity, c for disarmed, continuity good, or a for armed, continuity.  A failed continuity check results in a d result for the pad.  Attempts to arm a pad with failed continuity check will not arm the pad.
+
+Every command given to PiLauncher.py will return a status string.
+
+Example status strings:
+aadc = Pads 1 and 2 are armed, good continuity, Pad 3 is disarmed, no continuity, and Pad 4 is disarmed with good continuity
+
